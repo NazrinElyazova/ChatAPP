@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="He1-6D-TFl">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Login Screen Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="LoginScreenController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="LoginScreenController" customModule="ChatAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9d-pA-Xxk" customClass="CustomLoginRegisterView" customModule="ChatAPP" customModuleProvider="target">
+                                <rect key="frame" x="20" y="297" width="353" height="253"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="p9d-pA-Xxk" secondAttribute="bottom" constant="268" id="433-H1-swV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="p9d-pA-Xxk" secondAttribute="trailing" constant="20" id="8N5-XZ-2Rx"/>
+                            <constraint firstItem="p9d-pA-Xxk" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="194" id="OS3-Ef-Zij"/>
+                            <constraint firstItem="p9d-pA-Xxk" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="iX5-nW-qU6"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="MB0-Xf-3Ge"/>
+                    <connections>
+                        <outlet property="customView" destination="p9d-pA-Xxk" id="bcI-7Z-Rft"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="976.33587786259534" y="3.5211267605633805"/>
+        </scene>
+        <!--Register Screen Controller-->
+        <scene sceneID="aIG-XT-nOy">
+            <objects>
+                <viewController storyboardIdentifier="RegisterScreenController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Wc0-lG-VbW" customClass="RegisterScreenController" customModule="ChatAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Kwh-sh-KGP">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KqQ-hs-i4x" customClass="CustomLoginRegisterView" customModule="ChatAPP" customModuleProvider="target">
+                                <rect key="frame" x="20" y="253" width="353" height="297"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="2Yd-Hr-Kd9"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="2Yd-Hr-Kd9" firstAttribute="trailing" secondItem="KqQ-hs-i4x" secondAttribute="trailing" constant="20" id="Cy0-Ga-jhI"/>
+                            <constraint firstItem="2Yd-Hr-Kd9" firstAttribute="bottom" secondItem="KqQ-hs-i4x" secondAttribute="bottom" constant="268" id="nne-UR-cCR"/>
+                            <constraint firstItem="KqQ-hs-i4x" firstAttribute="leading" secondItem="2Yd-Hr-Kd9" secondAttribute="leading" constant="20" id="owP-7Q-GZ5"/>
+                            <constraint firstItem="KqQ-hs-i4x" firstAttribute="top" secondItem="2Yd-Hr-Kd9" secondAttribute="top" constant="194" id="vRu-Pq-jh3"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="customRegister" destination="KqQ-hs-i4x" id="MEM-8t-5jg"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TtQ-cj-mLK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1732" y="4"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7tY-2i-8tS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="He1-6D-TFl" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tUQ-xx-YSH">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ciP-8n-yz5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5Do-XL-Fnw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="49.618320610687022" y="3.5211267605633805"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
