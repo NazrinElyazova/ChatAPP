@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestoreInternal
 
 class LoginScreenController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var customView: CustomLoginRegisterView! {
@@ -15,25 +16,11 @@ class LoginScreenController: UIViewController, UITextFieldDelegate {
            configureUIElements()
         }
     }
-    
+    let database = Firestore.firestore()
     override func viewDidLoad() {
         super.viewDidLoad()
+        checkUserDefaults()
         navigationItem.title = "Login"
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        validateAuth()
-        
-    }
-    
-    func validateAuth() {
-        if FirebaseAuth.Auth.auth().currentUser == nil {
-            let vc = LoginScreenController()
-            let nav = UINavigationController(rootViewController: vc)
-            nav.modalPresentationStyle = .fullScreen
-            present(nav, animated: true)
-        }
     }
     
     @IBAction func registerBarButtonItem(_ sender: Any) {
@@ -43,13 +30,18 @@ class LoginScreenController: UIViewController, UITextFieldDelegate {
     
     func configureUIElements() {
         customView.doUISettings()
-        customView.delegate = self
+//        customView.delegate = self
         customView.emailTextField.delegate = self
         customView.passwordTextField.delegate = self
 
     }
     @IBAction func loginAction(_ sender: Any) {
         login()
+    }
+    
+    func checkUserDefaults() {
+        UserDefaults.standard.setValue(true, forKey: "loggedIn")
+        
     }
     
     func login() {
@@ -64,14 +56,5 @@ class LoginScreenController: UIViewController, UITextFieldDelegate {
             print("Logged in:\(user)")
         }
     }
- 
 }
 
-extension LoginScreenController: RegisterDelegate {
-    func goToController() {
-        
-    }
-    
-    func pushBack() {
-    }
-}

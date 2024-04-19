@@ -7,9 +7,12 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestoreInternal
 
 class RegisterScreenController: UIViewController {
     
+    let database = Firestore.firestore()
+
     @IBOutlet weak var customRegister: CustomLoginRegisterView! {
         didSet {
             customRegister.delegate = self
@@ -23,6 +26,7 @@ class RegisterScreenController: UIViewController {
     }
     
     @IBAction func registerAction(_ sender: Any) {
+        
         let email = customRegister.emailTextField.text ?? ""
         let password = customRegister.passwordTextField.text ?? ""
         
@@ -30,10 +34,18 @@ class RegisterScreenController: UIViewController {
             guard let result = authResult, error == nil else {
                 print("Error bas verdi")
                 return
-            }
-            let user = result.user
-            print("Created User: \(user)")
+            }           
+            self.addFirebase()
         }
+    }
+    
+    func addFirebase() {
+        let email = customRegister.emailTextField.text ?? ""
+        let password = customRegister.passwordTextField.text ?? ""
+        
+        let myDictionary: [String: Any] = [email: password]
+        
+        database.collection("Users").addDocument(data: myDictionary)
     }
 }
 
