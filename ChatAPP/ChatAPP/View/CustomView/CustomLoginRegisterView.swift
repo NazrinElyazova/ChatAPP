@@ -8,16 +8,11 @@
 import UIKit
 import FirebaseAuth
 
-protocol RegisterDelegate {
-    func goToController()
-}
-
 class CustomLoginRegisterView: UIView {
     
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     
-    var delegate: RegisterDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,28 +28,6 @@ class CustomLoginRegisterView: UIView {
         guard let view = self.loadFromNib(nibName: "CustomLoginRegisterView") else {return}
         view.frame = self.bounds
         self.addSubview(view)
-    }
-    
-    @IBAction func logRegAction(_ sender: Any) {
-        //        delegate?.goToController()
-        //        checkTheUser()
-        emailTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
-    }
-    
-    func checkTheUser() {
-        
-        let email = emailTextField.text ?? ""
-        let password = passwordTextField.text ?? ""
-        
-        FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            guard let result = authResult, error == nil else {
-                print("Error bas verdi")
-                return
-            }
-            let user = result.user
-            print("Created User: \(user)")
-        }
     }
     
     func doUISettings() {

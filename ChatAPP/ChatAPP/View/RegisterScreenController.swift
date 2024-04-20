@@ -15,7 +15,6 @@ class RegisterScreenController: UIViewController {
 
     @IBOutlet weak var customRegister: CustomLoginRegisterView! {
         didSet {
-            customRegister.delegate = self
             customRegister.doUISettings()
         }
     }
@@ -31,26 +30,19 @@ class RegisterScreenController: UIViewController {
         let password = customRegister.passwordTextField.text ?? ""
         
         FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            guard let result = authResult, error == nil else {
-                print("Error bas verdi")
-                return
-            }           
-            self.addFirebase()
+            if let error = error {
+                print("Error bas verdi registerde: \(error.localizedDescription)")
+            }   else {
+                self.addFirebase()
+            }
         }
     }
     
     func addFirebase() {
         let email = customRegister.emailTextField.text ?? ""
         let password = customRegister.passwordTextField.text ?? ""
-        
-        let myDictionary: [String: Any] = [email: password]
-        
+        let myDictionary: [String: Any] = ["email": email,
+                                           "password": password ]
         database.collection("Users").addDocument(data: myDictionary)
-    }
-}
-
-extension RegisterScreenController: RegisterDelegate {
-    func goToController() {
-        
     }
 }

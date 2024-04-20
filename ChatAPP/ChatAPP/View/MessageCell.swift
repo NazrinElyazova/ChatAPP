@@ -14,27 +14,14 @@ class MessageCell: UITableViewCell {
     @IBOutlet weak var nameAndMessageView: UIView!
     @IBOutlet weak var catImage: UIImageView!
     
-//    var messageAlignment: NSTextAlignment = .left {
-//        didSet {
-//            messageLabel. = messageAlignment
-//            
-//        }
-//    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        catImage.layer.cornerRadius = 16
+        catImage.layer.cornerRadius = 10
         catImage.clipsToBounds = true
     }
     
-   
-    // Initialization code
-    
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
 }
 
