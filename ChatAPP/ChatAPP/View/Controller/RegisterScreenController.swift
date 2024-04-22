@@ -12,7 +12,7 @@ import FirebaseFirestoreInternal
 class RegisterScreenController: UIViewController {
     
     let database = Firestore.firestore()
-
+    
     @IBOutlet weak var customRegister: CustomLoginRegisterView! {
         didSet {
             customRegister.doUISettings()
@@ -25,7 +25,6 @@ class RegisterScreenController: UIViewController {
     }
     
     @IBAction func registerAction(_ sender: Any) {
-        
         let email = customRegister.emailTextField.text ?? ""
         let password = customRegister.passwordTextField.text ?? ""
         

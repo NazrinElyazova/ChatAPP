@@ -12,3 +12,10 @@ struct ChatMessage: Codable {
     let message: String
     let timestamp: Date
 }
+
+
+struct Users: Codable {
+    var email: String
+    var password: String
+    var name: String
+}

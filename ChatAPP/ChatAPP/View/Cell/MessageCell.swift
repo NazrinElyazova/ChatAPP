@@ -17,7 +17,7 @@ class MessageCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        catImage.layer.cornerRadius = 10
+        catImage.layer.cornerRadius = 8
         catImage.clipsToBounds = true
     }
     

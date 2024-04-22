@@ -13,7 +13,6 @@ class CustomLoginRegisterView: UIView {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.configureView()

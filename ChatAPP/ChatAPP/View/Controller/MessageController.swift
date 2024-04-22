@@ -10,6 +10,7 @@ import FirebaseAuth
 
 class MessageController: UIViewController {
     let database = Firestore.firestore()
+    var bottomConstraint: NSLayoutConstraint?
     
     var currentUserEmail: String?
     var messages = [ChatMessage]()
@@ -25,29 +26,39 @@ class MessageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configUI()
+        hideKeyboardWhenTappedAround()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        bottomConstraint = NSLayoutConstraint(item: generalView!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -10)
         currentUserEmail = selectedUserEmail
+    }
+    
+    @objc func handleKeyboardNotification(notification: Notification) {
+        if let userInfo = notification.userInfo {
+            if let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                print(keyboardFrame)
+                bottomConstraint?.constant = -keyboardFrame.height
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        table.separatorStyle = .none
         observeMessages()
     }
     
     func configUI() {
         table.register(UINib(nibName: "\(MessageCell.self)", bundle: nil), forCellReuseIdentifier: "\(MessageCell.self)")
+        table.separatorStyle = .none
     }
     
     func observeMessages() {
-        
         let query = database.collection("Chats").document("email1_email2").collection("messages").order(by: "timestamp")
-        
         firestoreListener = query.addSnapshotListener { [weak self] (querySnapshot, error) in
             guard let snapshot = querySnapshot else {
                 print("Error fetching snapshot: \(error!)")
                 return
             }
-            
             self?.messages = snapshot.documents.compactMap { document -> ChatMessage? in
                 let data = document.data()
                 guard let sender = data["sender"] as? String,
@@ -70,7 +81,7 @@ class MessageController: UIViewController {
             print("Email nildir")
             return
         }
-  
+        
         let messageData: [String: Any] = [
             "sender": currentUserEmail,
             "message": messageText,
@@ -108,17 +119,30 @@ extension MessageController: UITableViewDataSource, UITableViewDelegate {
         
         if message.sender == currentUserEmail {
             cell.nameLabel.text = currentUserEmail
-            cell.nameAndMessageView.backgroundColor = UIColor.green
+            cell.nameAndMessageView.backgroundColor = UIColor.systemGreen
             cell.messageLabel.textAlignment = .right
             cell.nameLabel.textAlignment = .right
             cell.timeLabel.textAlignment = .right
-
+            //            cell.catImage.isHidden = true
+            cell.messageLabel.textColor = .white
+            cell.catImage.isHidden = false
+            cell.catImage.image = UIImage(named: "cat")
+            
+            cell.catImage.frame.origin = CGPoint(x: cell.contentView.frame.width - cell.catImage.frame.width, y: cell.contentView.frame.height - cell.catImage.frame.height)
+            
+            
         } else {
             cell.nameLabel.text = message.sender
             cell.messageLabel.textAlignment = .left
             cell.nameLabel.textAlignment = .left
             cell.timeLabel.textAlignment = .left
-
+            cell.catImage.isHidden = false
+            cell.nameAndMessageView.backgroundColor = UIColor.systemGray5
+            cell.messageLabel.textColor = .black
+            cell.catImage.image = UIImage(named: "taylor")
+            
+            cell.catImage.frame.origin = CGPoint(x: 0, y: cell.contentView.frame.height - cell.catImage.frame.height)
+            
         }
         return cell
     }
@@ -128,10 +152,10 @@ extension MessageController: UITableViewDataSource, UITableViewDelegate {
         dateFormatter.dateFormat = "HH:mm"
         return dateFormatter.string(from: date)
     }
-
+    
     func deleteMessages(withContent content: String) {
         let query = database.collection("Chats").document("email1_email2").collection("messages").whereField("message", isEqualTo: content)
-
+        
         query.getDocuments { (querySnapshot, error) in
             if let error = error {
                 print(error)
@@ -162,12 +186,24 @@ extension MessageController: UITableViewDataSource, UITableViewDelegate {
             if messageToRemove.sender == currentUserEmail {
                 let content = messageToRemove.message
                 deleteMessages(withContent: content)
-        
+                
                 self.messages.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
             } else {
                 print("Ancaq öz mesajlarınızı sile bilersiz")
             }
         }
+    }
+}
+
+extension MessageController {
+    func hideKeyboardWhenTappedAround() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(MessageController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

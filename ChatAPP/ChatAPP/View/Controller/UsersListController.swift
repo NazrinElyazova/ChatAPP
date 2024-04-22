@@ -9,17 +9,9 @@ import UIKit
 import FirebaseFirestoreInternal
 import FirebaseAuth
 
-struct Users: Codable {
-    var email: String
-    var password: String
-    var name: String
-}
-
 class UsersListController: UIViewController {
     var model = [Users]()
     let database = Firestore.firestore()
-    
-    
     
     @IBOutlet weak var table: UITableView!
     
@@ -30,7 +22,6 @@ class UsersListController: UIViewController {
     
     func getUsers() {
         model.removeAll()
-        
         database.collection("Users").getDocuments { snapshot, error in
             for document in snapshot?.documents ?? [] {
                 let dict = document.data()
@@ -39,17 +30,14 @@ class UsersListController: UIViewController {
                         let item = try JSONDecoder().decode(Users.self, from: data)
                         self.model.append(item)
                     } catch {
-//                        print("Xeta bas verdi: \(error)")
+                        //                        print("Xeta bas verdi: \(error)")
                     }
                     self.table.reloadData()
                 }
             }
         }
     }
-
-
 }
-
 
 extension UsersListController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,10 +47,7 @@ extension UsersListController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell")
-      
         cell?.textLabel?.text = model[indexPath.row].email
-        
-    
         return cell!
     }
     
@@ -70,8 +55,6 @@ extension UsersListController: UITableViewDelegate, UITableViewDataSource {
         let controller = storyboard?.instantiateViewController(withIdentifier: "\(MessageController.self)") as! MessageController
         let selectedUser = model[indexPath.row]
         controller.selectedUserEmail = selectedUser.email
-//        controller.selectedUserName = selectedUser.name
         navigationController?.pushViewController(controller, animated: true)
     }
-    
 }

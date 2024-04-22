@@ -77,6 +77,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B2574E12BD66D09006C87B6 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7B2574DF2BD636CA006C87B6 /* ChatMessage.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7B2574E22BD66D17006C87B6 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7B3D78BE2BD152F5006E77BC /* MessageCell.swift */,
+				7B3D78BF2BD152F5006E77BC /* MessageCell.xib */,
+				7B3D78C22BD15383006E77BC /* UserCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		7B2574E32BD66D25006C87B6 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7B813C0D2BCFEF1200969B93 /* RegisterScreenController.swift */,
+				7B3D78B62BD12786006E77BC /* MessageController.swift */,
+				7B813C042BCFE85600969B93 /* LoginScreenController.swift */,
+				7B3D78B02BD0F8EC006E77BC /* UsersListController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		7B813BE42BCFE81E00969B93 = {
 			isa = PBXGroup;
 			children = (
@@ -99,6 +128,7 @@
 			children = (
 				7B813BF02BCFE81E00969B93 /* AppDelegate.swift */,
 				7B813BF22BCFE81E00969B93 /* SceneDelegate.swift */,
+				7B2574E12BD66D09006C87B6 /* Model */,
 				7B813C0F2BCFEF1700969B93 /* View */,
 				7B813BF62BCFE81F00969B93 /* Main.storyboard */,
 				7B813C0C2BCFECA400969B93 /* Extension */,
@@ -121,15 +151,9 @@
 		7B813C0F2BCFEF1700969B93 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				7B2574E32BD66D25006C87B6 /* Controller */,
+				7B2574E22BD66D17006C87B6 /* Cell */,
 				7B813C102BCFEF2D00969B93 /* CustomView */,
-				7B813C0D2BCFEF1200969B93 /* RegisterScreenController.swift */,
-				7B3D78B02BD0F8EC006E77BC /* UsersListController.swift */,
-				7B3D78C22BD15383006E77BC /* UserCell.swift */,
-				7B813C042BCFE85600969B93 /* LoginScreenController.swift */,
-				7B3D78B62BD12786006E77BC /* MessageController.swift */,
-				7B2574DF2BD636CA006C87B6 /* ChatMessage.swift */,
-				7B3D78BE2BD152F5006E77BC /* MessageCell.swift */,
-				7B3D78BF2BD152F5006E77BC /* MessageCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";

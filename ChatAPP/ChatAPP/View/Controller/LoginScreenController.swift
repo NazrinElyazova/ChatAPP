@@ -11,13 +11,13 @@ import FirebaseFirestoreInternal
 
 class LoginScreenController: UIViewController, UITextFieldDelegate {
     let database = Firestore.firestore()
-
+    
     @IBOutlet weak var customView: CustomLoginRegisterView! {
-        
         didSet {
-           configureUIElements()
+            configureUIElements()
         }
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Login"
@@ -37,7 +37,6 @@ class LoginScreenController: UIViewController, UITextFieldDelegate {
         customView.doUISettings()
         customView.emailTextField.delegate = self
         customView.passwordTextField.delegate = self
-
     }
     
     func checkUserDefaults() {
