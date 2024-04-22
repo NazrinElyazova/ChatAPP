@@ -12,6 +12,7 @@ import FirebaseAuth
 struct Users: Codable {
     var email: String
     var password: String
+    var name: String
 }
 
 class UsersListController: UIViewController {
@@ -69,6 +70,7 @@ extension UsersListController: UITableViewDelegate, UITableViewDataSource {
         let controller = storyboard?.instantiateViewController(withIdentifier: "\(MessageController.self)") as! MessageController
         let selectedUser = model[indexPath.row]
         controller.selectedUserEmail = selectedUser.email
+//        controller.selectedUserName = selectedUser.name
         navigationController?.pushViewController(controller, animated: true)
     }
     

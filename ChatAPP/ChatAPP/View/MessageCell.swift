@@ -14,6 +14,7 @@ class MessageCell: UITableViewCell {
     @IBOutlet weak var nameAndMessageView: UIView!
     @IBOutlet weak var catImage: UIImageView!
     
+    @IBOutlet weak var timeLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         catImage.layer.cornerRadius = 10

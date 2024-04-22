@@ -244,7 +244,7 @@
                                             </backgroundConfiguration>
                                         </buttonConfiguration>
                                         <connections>
-                                            <action selector="sendButtonAction:" destination="an6-GH-SPN" eventType="touchUpInside" id="1Ai-CY-hL9"/>
+                                            <action selector="sendButtonAction:" destination="an6-GH-SPN" eventType="touchUpInside" id="y49-gs-hN0"/>
                                         </connections>
                                     </button>
                                 </subviews>

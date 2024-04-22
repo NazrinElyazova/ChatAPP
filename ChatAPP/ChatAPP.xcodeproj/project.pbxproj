@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B2574E02BD636CA006C87B6 /* ChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B2574DF2BD636CA006C87B6 /* ChatMessage.swift */; };
 		7B3D78B12BD0F8EC006E77BC /* UsersListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D78B02BD0F8EC006E77BC /* UsersListController.swift */; };
 		7B3D78B52BD0FE96006E77BC /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 7B3D78B42BD0FE96006E77BC /* FirebaseFirestoreSwift */; };
 		7B3D78B72BD12786006E77BC /* MessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B3D78B62BD12786006E77BC /* MessageController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B2574DF2BD636CA006C87B6 /* ChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessage.swift; sourceTree = "<group>"; };
 		7B3D78B02BD0F8EC006E77BC /* UsersListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListController.swift; sourceTree = "<group>"; };
 		7B3D78B62BD12786006E77BC /* MessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageController.swift; sourceTree = "<group>"; };
 		7B3D78BE2BD152F5006E77BC /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				7B3D78C22BD15383006E77BC /* UserCell.swift */,
 				7B813C042BCFE85600969B93 /* LoginScreenController.swift */,
 				7B3D78B62BD12786006E77BC /* MessageController.swift */,
+				7B2574DF2BD636CA006C87B6 /* ChatMessage.swift */,
 				7B3D78BE2BD152F5006E77BC /* MessageCell.swift */,
 				7B3D78BF2BD152F5006E77BC /* MessageCell.xib */,
 			);
@@ -240,6 +243,7 @@
 				7B813C072BCFEA9700969B93 /* CustomLoginRegisterView.swift in Sources */,
 				7B813BF12BCFE81E00969B93 /* AppDelegate.swift in Sources */,
 				7B813C0E2BCFEF1200969B93 /* RegisterScreenController.swift in Sources */,
+				7B2574E02BD636CA006C87B6 /* ChatMessage.swift in Sources */,
 				7B813BF32BCFE81E00969B93 /* SceneDelegate.swift in Sources */,
 				7B813C052BCFE85600969B93 /* LoginScreenController.swift in Sources */,
 				7B3D78B12BD0F8EC006E77BC /* UsersListController.swift in Sources */,
