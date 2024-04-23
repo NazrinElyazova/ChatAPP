@@ -15,3 +15,27 @@ extension UIView {
         return nib.instantiate(withOwner: self, options: nil).first as? UIView
     }
 }
+
+extension String {
+    func heightForWidth(width: CGFloat, font: UIFont) -> CGFloat {
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: .greatestFiniteMagnitude))
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        label.text = self
+        label.sizeToFit()
+        return label.frame.height
+    }
+}
+
+extension UIImage {
+    func resizedImage(to size: CGSize) -> UIImage? {
+        let scale = UIScreen.main.scale
+        let newSize = CGSize(width: size.width * scale, height: size.height * scale)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, scale)
+        self.draw(in: CGRect(origin: .zero, size: newSize))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage
+    }
+}
+

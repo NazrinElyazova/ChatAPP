@@ -9,9 +9,9 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class MessageController: UIViewController {
-    let database = Firestore.firestore()
-    var bottomConstraint: NSLayoutConstraint?
     
+    @IBOutlet weak var bottomCons: NSLayoutConstraint!
+    let database = Firestore.firestore()
     var currentUserEmail: String?
     var messages = [ChatMessage]()
     var firestoreListener: ListenerRegistration?
@@ -27,19 +27,24 @@ class MessageController: UIViewController {
         super.viewDidLoad()
         configUI()
         hideKeyboardWhenTappedAround()
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: UIResponder.keyboardWillShowNotification, object: nil)
-        
-        bottomConstraint = NSLayoutConstraint(item: generalView!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: -10)
         currentUserEmail = selectedUserEmail
+        sendButton.clipsToBounds = true
+        sendButton.layer.cornerRadius = sendButton.frame.size.height / 2
+        
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+    }
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            let keyboardHeight = keyboardSize.height
+            bottomCons.constant = keyboardHeight
+        }
     }
     
-    @objc func handleKeyboardNotification(notification: Notification) {
-        if let userInfo = notification.userInfo {
-            if let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-                print(keyboardFrame)
-                bottomConstraint?.constant = -keyboardFrame.height
-            }
-        }
+    @objc func keyboardWillHide(notification: NSNotification) {
+        bottomCons.constant = 20
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,11 +60,12 @@ class MessageController: UIViewController {
     func observeMessages() {
         let query = database.collection("Chats").document("email1_email2").collection("messages").order(by: "timestamp")
         firestoreListener = query.addSnapshotListener { [weak self] (querySnapshot, error) in
+            guard let self else {return}
             guard let snapshot = querySnapshot else {
                 print("Error fetching snapshot: \(error!)")
                 return
             }
-            self?.messages = snapshot.documents.compactMap { document -> ChatMessage? in
+            messages = snapshot.documents.compactMap { document -> ChatMessage? in
                 let data = document.data()
                 guard let sender = data["sender"] as? String,
                       let message = data["message"] as? String,
@@ -68,7 +74,10 @@ class MessageController: UIViewController {
                 }
                 return ChatMessage(sender: sender, message: message, timestamp: timestamp)
             }
-            self?.table.reloadData()
+            DispatchQueue.main.async {
+                self.table.reloadData()
+                
+            }
         }
     }
     
@@ -116,33 +125,24 @@ extension MessageController: UITableViewDataSource, UITableViewDelegate {
         cell.messageLabel.text = message.message
         cell.nameLabel.text = message.sender
         cell.timeLabel.text = formatTimestamp(message.timestamp)
+        cell.catImage.image = nil
+        
+        let image = message.sender == "taylor@mail.ru" ? UIImage(named: "taylor") : UIImage(named: "cat")
+        cell.catImage.image = image
         
         if message.sender == currentUserEmail {
+            
             cell.nameLabel.text = currentUserEmail
             cell.nameAndMessageView.backgroundColor = UIColor.systemGreen
             cell.messageLabel.textAlignment = .right
             cell.nameLabel.textAlignment = .right
             cell.timeLabel.textAlignment = .right
-            //            cell.catImage.isHidden = true
             cell.messageLabel.textColor = .white
-            cell.catImage.isHidden = false
-            cell.catImage.image = UIImage(named: "cat")
-            
-            cell.catImage.frame.origin = CGPoint(x: cell.contentView.frame.width - cell.catImage.frame.width, y: cell.contentView.frame.height - cell.catImage.frame.height)
-            
-            
-        } else {
+        }
+        else {
             cell.nameLabel.text = message.sender
-            cell.messageLabel.textAlignment = .left
-            cell.nameLabel.textAlignment = .left
-            cell.timeLabel.textAlignment = .left
-            cell.catImage.isHidden = false
             cell.nameAndMessageView.backgroundColor = UIColor.systemGray5
             cell.messageLabel.textColor = .black
-            cell.catImage.image = UIImage(named: "taylor")
-            
-            cell.catImage.frame.origin = CGPoint(x: 0, y: cell.contentView.frame.height - cell.catImage.frame.height)
-            
         }
         return cell
     }
@@ -193,6 +193,13 @@ extension MessageController: UITableViewDataSource, UITableViewDelegate {
                 print("Ancaq öz mesajlarınızı sile bilersiz")
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let message = messages[indexPath.row]
+        let messageText = message.message
+        let messageHeight = messageText.heightForWidth(width: tableView.frame.width - 10, font: UIFont.systemFont(ofSize: 17))
+        return messageHeight + 60
     }
 }
 
