@@ -7,19 +7,22 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseAuth
+import FirebaseStorage
+import SDWebImage
+import Combine
 
-class MessageController: UIViewController {
+class MessageController: UIViewController, UITextViewDelegate {
     
-    @IBOutlet weak var bottomCons: NSLayoutConstraint!
     let database = Firestore.firestore()
     var currentUserEmail: String?
-    var messages = [ChatMessage]()
-    var firestoreListener: ListenerRegistration?
     var selectedUserEmail: String?
+    var model = MessageViewModel()
     
+    @IBOutlet weak var textViewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var messageTextView: UITextView!
+    @IBOutlet weak var bottomCons: NSLayoutConstraint!
     @IBOutlet weak var sendButton: UIButton!
-    @IBOutlet weak var typeMessageTextField: UITextField!
-    @IBOutlet weak var textFieldView: UIView!
     @IBOutlet weak var table: UITableView!
     @IBOutlet weak var generalView: UIView!
     
@@ -27,15 +30,8 @@ class MessageController: UIViewController {
         super.viewDidLoad()
         configUI()
         hideKeyboardWhenTappedAround()
-        currentUserEmail = selectedUserEmail
-        sendButton.clipsToBounds = true
-        sendButton.layer.cornerRadius = sendButton.frame.size.height / 2
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
     }
+    
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             let keyboardHeight = keyboardSize.height
@@ -49,57 +45,77 @@ class MessageController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        observeMessages()
+        configureViewModel()
+        model.observeMessages()
+        currentUserEmail = selectedUserEmail
+        addObserver()
+    }
+    
+    func configureViewModel() {
+        model.onSuccess = PassthroughSubject<Void, Never>()
+        model.onSuccess
+            .sink { [weak self] in
+                self?.table.reloadData()
+            }
+            .store(in: &model.cancellables)
+    }
+    //MARK: UITEXTVIEW DELEGATE
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == "Type a message" {
+            textView.text = ""
+            textView.textColor = UIColor.black
+            textView.font = UIFont(name: "roboto", size: 16)
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+        }
+        let textSize : CGFloat = 50
+        textViewHeight.constant = textSize
+        
+        return true
+    }
+    
+    func addObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     func configUI() {
         table.register(UINib(nibName: "\(MessageCell.self)", bundle: nil), forCellReuseIdentifier: "\(MessageCell.self)")
         table.separatorStyle = .none
-    }
-    
-    func observeMessages() {
-        let query = database.collection("Chats").document("email1_email2").collection("messages").order(by: "timestamp")
-        firestoreListener = query.addSnapshotListener { [weak self] (querySnapshot, error) in
-            guard let self else {return}
-            guard let snapshot = querySnapshot else {
-                print("Error fetching snapshot: \(error!)")
-                return
-            }
-            messages = snapshot.documents.compactMap { document -> ChatMessage? in
-                let data = document.data()
-                guard let sender = data["sender"] as? String,
-                      let message = data["message"] as? String,
-                      let timestamp = (data["timestamp"] as? Timestamp)?.dateValue() else {
-                    return nil
-                }
-                return ChatMessage(sender: sender, message: message, timestamp: timestamp)
-            }
-            DispatchQueue.main.async {
-                self.table.reloadData()
-                
-            }
-        }
+        sendButton.clipsToBounds = true
+        sendButton.layer.cornerRadius = sendButton.frame.size.height / 2
+        messageTextView.delegate = self
+        messageTextView.layer.borderWidth = 1
+        messageTextView.layer.borderColor = UIColor.lightGray.cgColor
+        messageTextView.layer.cornerRadius = 16
     }
     
     @IBAction func sendButtonAction(_ sender: Any) {
-        guard let messageText = typeMessageTextField.text, !messageText.isEmpty else {
-            return
-        }
-        
-        guard let currentUserEmail = currentUserEmail else {
-            print("Email nildir")
-            return
+        guard let messageText = messageTextView.text, !messageText.isEmpty else {return}
+      
+        var photo: String?
+        if currentUserEmail == "taylor@mail.ru" {
+            photo = "taylor.png"
+        } else if currentUserEmail == "alex@mail.ru" {
+            photo = "cat.png"
         }
         
         let messageData: [String: Any] = [
-            "sender": currentUserEmail,
+            "sender": currentUserEmail!,
             "message": messageText,
-            "timestamp": Date()
+            "timestamp": Date(),
+            "photo": photo ?? ""
         ]
         
-        if let timestamp = messageData["timestamp"] as? Date {
-            let newMessage = ChatMessage(sender: currentUserEmail, message: messageText, timestamp: timestamp)
-            self.messages.append(newMessage)
+        if let timestamp = messageData["timestamp"] as? Date,
+           let photo = messageData["photo"] as? String {
+            
+            let newMessage = ChatMessage(sender: currentUserEmail!, message: messageText, timestamp: timestamp, photo: photo)
+            self.model.messages.append(newMessage)
             self.table.reloadData()
         }
         
@@ -108,7 +124,7 @@ class MessageController: UIViewController {
                 print(error)
             } else {
                 print("Message sent successfully")
-                self.typeMessageTextField.text = ""
+                self.messageTextView.text = ""
             }
         }
     }
@@ -116,22 +132,24 @@ class MessageController: UIViewController {
 
 extension MessageController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return model.messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
-        let message = messages[indexPath.row]
+        let message = model.messages[indexPath.row]
         cell.messageLabel.text = message.message
         cell.nameLabel.text = message.sender
         cell.timeLabel.text = formatTimestamp(message.timestamp)
         cell.catImage.image = nil
         
-        let image = message.sender == "taylor@mail.ru" ? UIImage(named: "taylor") : UIImage(named: "cat")
-        cell.catImage.image = image
+        let img = message.photo
+        Storage.storage().reference().child(img).downloadURL { url, error in
+            guard let url = url else { return }
+            cell.catImage.sd_setImage(with: url)
+        }
         
         if message.sender == currentUserEmail {
-            
             cell.nameLabel.text = currentUserEmail
             cell.nameAndMessageView.backgroundColor = UIColor.systemGreen
             cell.messageLabel.textAlignment = .right
@@ -139,6 +157,7 @@ extension MessageController: UITableViewDataSource, UITableViewDelegate {
             cell.timeLabel.textAlignment = .right
             cell.messageLabel.textColor = .white
         }
+        
         else {
             cell.nameLabel.text = message.sender
             cell.nameAndMessageView.backgroundColor = UIColor.systemGray5
@@ -177,28 +196,21 @@ extension MessageController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let messageToRemove = messages[indexPath.row]
-            guard let currentUserEmail = currentUserEmail else {
-                print("Error: Email nildir")
-                return
-            }
-            
-            if messageToRemove.sender == currentUserEmail {
+            let messageToRemove = model.messages[indexPath.row]
+            if messageToRemove.sender == currentUserEmail || messageToRemove.sender != currentUserEmail {
                 let content = messageToRemove.message
                 deleteMessages(withContent: content)
                 
-                self.messages.remove(at: indexPath.row)
+                self.model.messages.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
-            } else {
-                print("Ancaq öz mesajlarınızı sile bilersiz")
             }
         }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let message = messages[indexPath.row]
+        let message = model.messages[indexPath.row]
         let messageText = message.message
-        let messageHeight = messageText.heightForWidth(width: tableView.frame.width - 10, font: UIFont.systemFont(ofSize: 17))
+        let messageHeight = messageText.heightForWidth(width: tableView.frame.width, font: UIFont.systemFont(ofSize: 17))
         return messageHeight + 60
     }
 }

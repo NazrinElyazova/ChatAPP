@@ -201,28 +201,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mNS-6G-tJl">
                                 <rect key="frame" x="20" y="768" width="353" height="50"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ldQ-HY-Tf5">
-                                        <rect key="frame" x="4" y="0.0" width="281" height="50"/>
-                                        <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Type a message.." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MHz-tm-PrZ">
-                                                <rect key="frame" x="8" y="0.0" width="265" height="50"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                            </textField>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="MHz-tm-PrZ" secondAttribute="bottom" id="2L4-lX-lmj"/>
-                                            <constraint firstItem="MHz-tm-PrZ" firstAttribute="leading" secondItem="ldQ-HY-Tf5" secondAttribute="leading" constant="8" id="9wY-Z3-Zhs"/>
-                                            <constraint firstItem="MHz-tm-PrZ" firstAttribute="top" secondItem="ldQ-HY-Tf5" secondAttribute="top" id="Dgv-Gx-7lb"/>
-                                            <constraint firstAttribute="trailing" secondItem="MHz-tm-PrZ" secondAttribute="trailing" constant="8" id="VIZ-6E-xJe"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <integer key="value" value="20"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LU9-DY-PQf">
                                         <rect key="frame" x="293" y="0.0" width="50" height="50"/>
                                         <color key="backgroundColor" systemColor="systemGreenColor"/>
@@ -237,16 +215,23 @@
                                             <action selector="sendButtonAction:" destination="an6-GH-SPN" eventType="touchUpInside" id="y49-gs-hN0"/>
                                         </connections>
                                     </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Type a message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="vwD-Qk-mqD">
+                                        <rect key="frame" x="8" y="0.0" width="277" height="50"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="ldQ-HY-Tf5" firstAttribute="leading" secondItem="mNS-6G-tJl" secondAttribute="leading" constant="4" id="5qH-EF-X7m"/>
+                                    <constraint firstAttribute="height" constant="50" id="GGR-FK-fiF"/>
                                     <constraint firstAttribute="trailing" secondItem="LU9-DY-PQf" secondAttribute="trailing" constant="10" id="KHh-fp-efc"/>
-                                    <constraint firstItem="LU9-DY-PQf" firstAttribute="top" secondItem="mNS-6G-tJl" secondAttribute="top" id="KbD-Dd-lCo"/>
+                                    <constraint firstItem="vwD-Qk-mqD" firstAttribute="top" secondItem="mNS-6G-tJl" secondAttribute="top" id="OmM-MI-3Zp"/>
                                     <constraint firstAttribute="bottom" secondItem="LU9-DY-PQf" secondAttribute="bottom" id="P84-2W-EKr"/>
-                                    <constraint firstItem="ldQ-HY-Tf5" firstAttribute="top" secondItem="mNS-6G-tJl" secondAttribute="top" id="dkl-uT-ZNH"/>
-                                    <constraint firstItem="LU9-DY-PQf" firstAttribute="leading" secondItem="ldQ-HY-Tf5" secondAttribute="trailing" constant="8" id="nSq-1b-gRp"/>
-                                    <constraint firstAttribute="bottom" secondItem="ldQ-HY-Tf5" secondAttribute="bottom" id="oEa-Mo-ZKT"/>
+                                    <constraint firstItem="LU9-DY-PQf" firstAttribute="leading" secondItem="vwD-Qk-mqD" secondAttribute="trailing" constant="8" id="R6N-hD-OA5"/>
+                                    <constraint firstItem="vwD-Qk-mqD" firstAttribute="leading" secondItem="mNS-6G-tJl" secondAttribute="leading" constant="8" id="XWd-6i-BAy"/>
+                                    <constraint firstAttribute="bottom" secondItem="vwD-Qk-mqD" secondAttribute="bottom" id="ZSr-dN-zO5"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -270,10 +255,10 @@
                     <connections>
                         <outlet property="bottomCons" destination="W0C-2Y-MZC" id="mf8-FS-rLJ"/>
                         <outlet property="generalView" destination="mNS-6G-tJl" id="GKk-ES-7ML"/>
+                        <outlet property="messageTextView" destination="vwD-Qk-mqD" id="o16-ED-kjh"/>
                         <outlet property="sendButton" destination="LU9-DY-PQf" id="TEl-X4-Uj4"/>
                         <outlet property="table" destination="0Cz-MJ-dz9" id="rcw-wP-PPL"/>
-                        <outlet property="textFieldView" destination="ldQ-HY-Tf5" id="TxQ-tK-4hK"/>
-                        <outlet property="typeMessageTextField" destination="MHz-tm-PrZ" id="fsg-V3-bs2"/>
+                        <outlet property="textViewHeight" destination="GGR-FK-fiF" id="fz6-z7-iIG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGM-gQ-DzF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -303,11 +288,11 @@
         <image name="chat" width="512" height="512"/>
         <image name="chat2" width="512" height="512"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
             <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

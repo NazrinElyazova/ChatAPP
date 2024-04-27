@@ -11,6 +11,7 @@ struct ChatMessage: Codable {
     let sender: String
     let message: String
     let timestamp: Date
+    var photo: String
 }
 
 
