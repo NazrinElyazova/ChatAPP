@@ -17,9 +17,10 @@ class MessageController: UIViewController, UITextViewDelegate {
     var currentUserEmail: String?
     var selectedUserEmail: String?
     var model = MessageViewModel()
+    var initialTextViewHeight: CGFloat = 60.0
+    private let cache = NSCache<NSString, UIImage>()
     
     @IBOutlet weak var textViewHeight: NSLayoutConstraint!
-    
     @IBOutlet weak var messageTextView: UITextView!
     @IBOutlet weak var bottomCons: NSLayoutConstraint!
     @IBOutlet weak var sendButton: UIButton!
@@ -49,6 +50,7 @@ class MessageController: UIViewController, UITextViewDelegate {
         model.observeMessages()
         currentUserEmail = selectedUserEmail
         addObserver()
+        fetchImage()
     }
     
     func configureViewModel() {
@@ -58,6 +60,12 @@ class MessageController: UIViewController, UITextViewDelegate {
                 self?.table.reloadData()
             }
             .store(in: &model.cancellables)
+    }
+    
+    func fetchImage() {
+        if let image = cache.object(forKey: "image") {
+            print("nil deyil \(image)")
+        }
     }
     //MARK: UITEXTVIEW DELEGATE
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -72,10 +80,15 @@ class MessageController: UIViewController, UITextViewDelegate {
         if text == "\n" {
             textView.resignFirstResponder()
         }
-        let textSize : CGFloat = 50
+        let textSize : CGFloat = 60
         textViewHeight.constant = textSize
-        
         return true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let sizeToFitIn = CGSize(width: textView.bounds.width, height: CGFloat(MAXFLOAT))
+        let newSize = textView.sizeThatFits(sizeToFitIn)
+        textViewHeight.constant = newSize.height
     }
     
     func addObserver() {
@@ -92,16 +105,23 @@ class MessageController: UIViewController, UITextViewDelegate {
         messageTextView.layer.borderWidth = 1
         messageTextView.layer.borderColor = UIColor.lightGray.cgColor
         messageTextView.layer.cornerRadius = 16
+        initialTextViewHeight = textViewHeight.constant
     }
     
     @IBAction func sendButtonAction(_ sender: Any) {
         guard let messageText = messageTextView.text, !messageText.isEmpty else {return}
-      
+        
         var photo: String?
         if currentUserEmail == "taylor@mail.ru" {
             photo = "taylor.png"
         } else if currentUserEmail == "alex@mail.ru" {
             photo = "cat.png"
+        }
+        
+        let image = UIImage(named: photo ?? "")
+        if let image = image {
+            print("cache used")
+            self.cache.setObject(image, forKey: "image")
         }
         
         let messageData: [String: Any] = [
@@ -125,8 +145,10 @@ class MessageController: UIViewController, UITextViewDelegate {
             } else {
                 print("Message sent successfully")
                 self.messageTextView.text = ""
+                self.textViewHeight.constant = self.initialTextViewHeight
             }
         }
+        
     }
 }
 
@@ -207,12 +229,14 @@ extension MessageController: UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let message = model.messages[indexPath.row]
-        let messageText = message.message
-        let messageHeight = messageText.heightForWidth(width: tableView.frame.width, font: UIFont.systemFont(ofSize: 17))
-        return messageHeight + 60
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let message = model.messages[indexPath.row].message
+//        let maxWidth = tableView.bounds.width - 32
+//        let maxHeight = CGFloat.greatestFiniteMagnitude
+//        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+//        let estimatedFrame = NSString(string: message).boundingRect(with: CGSize(width: maxWidth, height: maxHeight), options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
+//        return min(estimatedFrame.height + 80, tableView.bounds.height - 8)
+//    }
 }
 
 extension MessageController {
