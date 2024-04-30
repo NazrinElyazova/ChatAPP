@@ -12,13 +12,12 @@ import SDWebImage
 import Combine
 
 class MessageController: UIViewController, UITextViewDelegate {
-    
+    private let cache = NSCache<NSString, UIImage>()
     let database = Firestore.firestore()
     var currentUserEmail: String?
     var selectedUserEmail: String?
     var model = MessageViewModel()
     var initialTextViewHeight: CGFloat = 60.0
-    private let cache = NSCache<NSString, UIImage>()
     
     @IBOutlet weak var textViewHeight: NSLayoutConstraint!
     @IBOutlet weak var messageTextView: UITextView!
@@ -67,12 +66,12 @@ class MessageController: UIViewController, UITextViewDelegate {
             print("nil deyil \(image)")
         }
     }
+    
     //MARK: UITEXTVIEW DELEGATE
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "Type a message" {
             textView.text = ""
             textView.textColor = UIColor.black
-            textView.font = UIFont(name: "roboto", size: 16)
         }
     }
     
@@ -110,20 +109,13 @@ class MessageController: UIViewController, UITextViewDelegate {
     
     @IBAction func sendButtonAction(_ sender: Any) {
         guard let messageText = messageTextView.text, !messageText.isEmpty else {return}
-        
         var photo: String?
         if currentUserEmail == "taylor@mail.ru" {
             photo = "taylor.png"
         } else if currentUserEmail == "alex@mail.ru" {
             photo = "cat.png"
         }
-        
-        let image = UIImage(named: photo ?? "")
-        if let image = image {
-            print("cache used")
-            self.cache.setObject(image, forKey: "image")
-        }
-        
+    
         let messageData: [String: Any] = [
             "sender": currentUserEmail!,
             "message": messageText,
@@ -167,7 +159,10 @@ extension MessageController: UITableViewDataSource, UITableViewDelegate {
         
         let img = message.photo
         Storage.storage().reference().child(img).downloadURL { url, error in
-            guard let url = url else { return }
+            guard let url = url else 
+           
+            { return }
+//            print(url)
             cell.catImage.sd_setImage(with: url)
         }
         
@@ -178,12 +173,20 @@ extension MessageController: UITableViewDataSource, UITableViewDelegate {
             cell.nameLabel.textAlignment = .right
             cell.timeLabel.textAlignment = .right
             cell.messageLabel.textColor = .white
+            cell.contentView.transform = CGAffineTransform(scaleX: -1, y: 1)
+            cell.messageLabel.transform = CGAffineTransform(scaleX: -1, y: 1)
+            cell.nameLabel.transform = CGAffineTransform(scaleX: -1, y: 1)
+            cell.timeLabel.transform = CGAffineTransform(scaleX: -1, y: 1)
         }
         
         else {
             cell.nameLabel.text = message.sender
             cell.nameAndMessageView.backgroundColor = UIColor.systemGray5
             cell.messageLabel.textColor = .black
+            cell.contentView.transform = CGAffineTransform.identity
+            cell.messageLabel.transform = CGAffineTransform.identity
+            cell.nameLabel.transform = CGAffineTransform.identity
+            cell.timeLabel.transform = CGAffineTransform.identity
         }
         return cell
     }
@@ -228,15 +231,6 @@ extension MessageController: UITableViewDataSource, UITableViewDelegate {
             }
         }
     }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let message = model.messages[indexPath.row].message
-//        let maxWidth = tableView.bounds.width - 32
-//        let maxHeight = CGFloat.greatestFiniteMagnitude
-//        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-//        let estimatedFrame = NSString(string: message).boundingRect(with: CGSize(width: maxWidth, height: maxHeight), options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
-//        return min(estimatedFrame.height + 80, tableView.bounds.height - 8)
-//    }
 }
 
 extension MessageController {

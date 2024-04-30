@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestoreInternal
+import GoogleSignIn
 
 class RegisterScreenController: UIViewController {
     
@@ -22,6 +23,10 @@ class RegisterScreenController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Create account"
+    }
+    @IBAction func googleSignButtonAction(_ sender: Any) {
+      
+        
     }
     
     @IBAction func registerAction(_ sender: Any) {

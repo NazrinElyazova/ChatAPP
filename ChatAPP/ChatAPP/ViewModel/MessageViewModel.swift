@@ -17,6 +17,7 @@ class MessageViewModel {
     var cancellables = Set<AnyCancellable>()
     var onSuccess: PassthroughSubject<Void, Never> = PassthroughSubject<Void, Never>()
     
+   
     init() {
         setupSubscribers()
     }

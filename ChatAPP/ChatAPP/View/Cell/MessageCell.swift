@@ -9,6 +9,8 @@ import UIKit
 
 class MessageCell: UITableViewCell {
     
+    @IBOutlet weak var trailingConstraintNameandMessageVieü: NSLayoutConstraint!
+    @IBOutlet weak var leadingConstraintOfNameandLMeesage: NSLayoutConstraint!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var nameAndMessageView: UIView!
