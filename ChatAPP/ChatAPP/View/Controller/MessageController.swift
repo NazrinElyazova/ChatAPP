@@ -74,22 +74,19 @@ class MessageController: UIViewController, UITextViewDelegate {
             textView.textColor = UIColor.black
         }
     }
-    
+
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-            textView.resignFirstResponder()
-        }
-        let textSize : CGFloat = 60
-        textViewHeight.constant = textSize
-        return true
+        let newText = (textView.text as NSString).replacingCharacters(in: range, with: text)
+        return newText.count <= 10000
     }
-    
+
     func textViewDidChange(_ textView: UITextView) {
-        let sizeToFitIn = CGSize(width: textView.bounds.width, height: CGFloat(MAXFLOAT))
+        let maxHeight: CGFloat = 200
+        let sizeToFitIn = CGSize(width: textView.bounds.width, height: maxHeight)
         let newSize = textView.sizeThatFits(sizeToFitIn)
-        textViewHeight.constant = newSize.height
+        textViewHeight.constant = min(newSize.height, maxHeight)
     }
-    
+
     func addObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -115,7 +112,7 @@ class MessageController: UIViewController, UITextViewDelegate {
         } else if currentUserEmail == "alex@mail.ru" {
             photo = "cat.png"
         }
-    
+        
         let messageData: [String: Any] = [
             "sender": currentUserEmail!,
             "message": messageText,
@@ -159,10 +156,9 @@ extension MessageController: UITableViewDataSource, UITableViewDelegate {
         
         let img = message.photo
         Storage.storage().reference().child(img).downloadURL { url, error in
-            guard let url = url else 
-           
+            guard let url = url else
+            
             { return }
-//            print(url)
             cell.catImage.sd_setImage(with: url)
         }
         

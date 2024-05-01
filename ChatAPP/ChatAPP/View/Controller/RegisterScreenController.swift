@@ -13,6 +13,7 @@ import GoogleSignIn
 class RegisterScreenController: UIViewController {
     
     let database = Firestore.firestore()
+    var adapter: LoginAdapter?
     
     @IBOutlet weak var customRegister: CustomLoginRegisterView! {
         didSet {
@@ -22,10 +23,19 @@ class RegisterScreenController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        adapter = LoginAdapter(controller: self)
+        
+        adapter?.success = { user in
+            self.customRegister.emailTextField.text = user.email
+            self.customRegister.passwordTextField.text = user.password
+
+        }
         navigationItem.title = "Create account"
+        
     }
+    
     @IBAction func googleSignButtonAction(_ sender: Any) {
-      
+        adapter?.googleSign()
         
     }
     

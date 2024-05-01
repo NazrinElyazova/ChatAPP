@@ -9,7 +9,13 @@ import Foundation
 import GoogleSignIn
 
 class LoginAdapter {
-    var controller: UIViewController?
+    var controller: UIViewController
+    
+    var success: ((Users)-> Void)?
+    
+    init(controller: UIViewController) {
+        self.controller = controller
+    }
     
     func googleSign() {
         GIDSignIn.sharedInstance.signIn(withPresenting: controller) { result, error in
@@ -17,8 +23,8 @@ class LoginAdapter {
                 print(error)
             }
             else if let result = result {
-//                print(result)
-                let user = Users(email: result.user.profile?.email ?? "", password: "", name: result.user.profile?.familyName ?? "")
+                let user = Users(email: result.user.profile?.email ?? "", password: "111111", name: result.user.profile?.familyName ?? "")
+                self.success?(user)
             }
         }
     }
