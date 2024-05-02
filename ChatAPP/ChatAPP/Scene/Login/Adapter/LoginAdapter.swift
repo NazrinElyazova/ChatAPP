@@ -16,6 +16,16 @@ class LoginAdapter {
     init(controller: UIViewController) {
         self.controller = controller
     }
+    enum LoginType {
+        case google
+    }
+    
+    func login(type: LoginType) {
+        switch type {
+        case.google:
+            googleSign()
+        }
+    }
     
     func googleSign() {
         GIDSignIn.sharedInstance.signIn(withPresenting: controller) { result, error in
@@ -28,5 +38,4 @@ class LoginAdapter {
             }
         }
     }
-    
 }

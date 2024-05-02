@@ -121,6 +121,23 @@
                                     <action selector="googleSignButtonAction:" destination="Wc0-lG-VbW" eventType="touchUpInside" id="b9u-N2-EfL"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JcJ-bw-Vun">
+                                <rect key="frame" x="20" y="697" width="353" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="eYc-vX-5nW"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Sign in with Apple">
+                                    <backgroundConfiguration key="background">
+                                        <color key="backgroundColor" red="0.3803921569" green="0.68627450980000004" blue="0.16862745100000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </backgroundConfiguration>
+                                    <fontDescription key="titleFontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
+                                    <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="signApple:" destination="Wc0-lG-VbW" eventType="touchUpInside" id="u5d-01-GOB"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="2Yd-Hr-Kd9"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -128,9 +145,12 @@
                             <constraint firstItem="zpx-Eb-eke" firstAttribute="leading" secondItem="2Yd-Hr-Kd9" secondAttribute="leading" constant="20" id="2Uy-sc-x1v"/>
                             <constraint firstItem="2Yd-Hr-Kd9" firstAttribute="trailing" secondItem="KqQ-hs-i4x" secondAttribute="trailing" constant="20" id="9Md-aP-9ZF"/>
                             <constraint firstItem="2Yd-Hr-Kd9" firstAttribute="trailing" secondItem="TTL-hb-YUU" secondAttribute="trailing" constant="20" id="AN3-yC-8bT"/>
+                            <constraint firstItem="JcJ-bw-Vun" firstAttribute="leading" secondItem="2Yd-Hr-Kd9" secondAttribute="leading" constant="20" id="B9N-bm-vsl"/>
                             <constraint firstItem="dRo-bN-O7p" firstAttribute="leading" secondItem="2Yd-Hr-Kd9" secondAttribute="leading" constant="20" id="BXJ-Aq-efz"/>
                             <constraint firstItem="KqQ-hs-i4x" firstAttribute="top" secondItem="zpx-Eb-eke" secondAttribute="bottom" constant="25" id="N4v-6y-p5L"/>
+                            <constraint firstItem="JcJ-bw-Vun" firstAttribute="top" secondItem="dRo-bN-O7p" secondAttribute="bottom" constant="8" symbolic="YES" id="NnT-9p-1tq"/>
                             <constraint firstItem="TTL-hb-YUU" firstAttribute="leading" secondItem="2Yd-Hr-Kd9" secondAttribute="leading" constant="20" id="UT7-bZ-feA"/>
+                            <constraint firstItem="2Yd-Hr-Kd9" firstAttribute="trailing" secondItem="JcJ-bw-Vun" secondAttribute="trailing" constant="20" id="UU2-62-H6Q"/>
                             <constraint firstItem="TTL-hb-YUU" firstAttribute="top" secondItem="KqQ-hs-i4x" secondAttribute="bottom" constant="40" id="Uzx-ob-eqf"/>
                             <constraint firstItem="KqQ-hs-i4x" firstAttribute="leading" secondItem="2Yd-Hr-Kd9" secondAttribute="leading" constant="20" id="XZO-20-crf"/>
                             <constraint firstItem="zpx-Eb-eke" firstAttribute="top" secondItem="2Yd-Hr-Kd9" secondAttribute="top" constant="36" id="YTo-Rv-R2w"/>

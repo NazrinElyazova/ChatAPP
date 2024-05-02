@@ -16,17 +16,6 @@ extension UIView {
     }
 }
 
-//extension String {
-//    func heightForWidth(width: CGFloat, font: UIFont) -> CGFloat {
-//        let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: .greatestFiniteMagnitude))
-//        label.numberOfLines = 0
-//        label.lineBreakMode = .byWordWrapping
-//        label.text = self
-//        label.sizeToFit()
-//        return label.frame.height
-//    }
-//}
-
 extension UIImage {
     func resizedImage(to size: CGSize) -> UIImage? {
         let scale = UIScreen.main.scale

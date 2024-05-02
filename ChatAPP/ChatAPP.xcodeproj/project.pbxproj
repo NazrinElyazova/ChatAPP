@@ -65,6 +65,7 @@
 		7B813C0A2BCFEB2600969B93 /* CustomLoginRegisterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomLoginRegisterView.xib; sourceTree = "<group>"; };
 		7B813C0D2BCFEF1200969B93 /* RegisterScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreenController.swift; sourceTree = "<group>"; };
 		7B813C1C2BD006CA00969B93 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7BCAB72D2BE382ED0061511B /* ChatAPP.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChatAPP.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,48 +94,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7B0151BC2BD91EDE00D134F6 /* ViewModel */ = {
+		7B1815802BE218AD00E9943F /* Scene */ = {
 			isa = PBXGroup;
 			children = (
-				7B0151BD2BD91EF200D134F6 /* MessageViewModel.swift */,
+				7BCAB73B2BE3A6AB0061511B /* Extension */,
+				7BCAB7382BE3A6670061511B /* UserList */,
+				7BCAB7302BE3A5990061511B /* MessageScreen */,
+				7BCAB72F2BE3A58E0061511B /* Register */,
+				7BCAB72E2BE3A5830061511B /* Login */,
 			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		7B1815802BE218AD00E9943F /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
-		7B2574E12BD66D09006C87B6 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				7B2574DF2BD636CA006C87B6 /* ChatMessage.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		7B2574E22BD66D17006C87B6 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				7B3D78BE2BD152F5006E77BC /* MessageCell.swift */,
-				7B3D78BF2BD152F5006E77BC /* MessageCell.xib */,
-				7B3D78C22BD15383006E77BC /* UserCell.swift */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		7B2574E32BD66D25006C87B6 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				7B813C0D2BCFEF1200969B93 /* RegisterScreenController.swift */,
-				7B3D78B62BD12786006E77BC /* MessageController.swift */,
-				7B813C042BCFE85600969B93 /* LoginScreenController.swift */,
-				7B3D78B02BD0F8EC006E77BC /* UsersListController.swift */,
-			);
-			path = Controller;
+			path = Scene;
 			sourceTree = "<group>";
 		};
 		7B813BE42BCFE81E00969B93 = {
@@ -157,13 +126,10 @@
 		7B813BEF2BCFE81E00969B93 /* ChatAPP */ = {
 			isa = PBXGroup;
 			children = (
+				7BCAB72D2BE382ED0061511B /* ChatAPP.entitlements */,
 				7B813BF02BCFE81E00969B93 /* AppDelegate.swift */,
 				7B813BF22BCFE81E00969B93 /* SceneDelegate.swift */,
-				7B1815802BE218AD00E9943F /* New Group */,
-				7B2574E12BD66D09006C87B6 /* Model */,
-				7B0151BC2BD91EDE00D134F6 /* ViewModel */,
-				7B813C0F2BCFEF1700969B93 /* View */,
-				7B813C0C2BCFECA400969B93 /* Extension */,
+				7B1815802BE218AD00E9943F /* Scene */,
 				7B813BF62BCFE81F00969B93 /* Main.storyboard */,
 				7B813BF92BCFE82200969B93 /* Assets.xcassets */,
 				7B813BFB2BCFE82200969B93 /* LaunchScreen.storyboard */,
@@ -173,26 +139,67 @@
 			path = ChatAPP;
 			sourceTree = "<group>";
 		};
-		7B813C0C2BCFECA400969B93 /* Extension */ = {
+		7B813C1E2BD0084E00969B93 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7B813C082BCFEAAD00969B93 /* ViewExtension.swift */,
-				7B1C24782BE11EC1000CB4F5 /* LoginAdapter.swift */,
 			);
-			path = Extension;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		7B813C0F2BCFEF1700969B93 /* View */ = {
+		7BCAB72E2BE3A5830061511B /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				7B2574E32BD66D25006C87B6 /* Controller */,
-				7B2574E22BD66D17006C87B6 /* Cell */,
-				7B813C102BCFEF2D00969B93 /* CustomView */,
+				7BCAB7352BE3A6340061511B /* Adapter */,
+				7BCAB7342BE3A6100061511B /* CustomView */,
+				7BCAB7332BE3A6010061511B /* View */,
+				7BCAB7312BE3A5CA0061511B /* Model */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		7BCAB72F2BE3A58E0061511B /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				7BCAB7362BE3A6400061511B /* View */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		7BCAB7302BE3A5990061511B /* MessageScreen */ = {
+			isa = PBXGroup;
+			children = (
+				7BCAB73A2BE3A6800061511B /* Cell */,
+				7BCAB7372BE3A6480061511B /* View */,
+				7BCAB7322BE3A5EF0061511B /* ViewModel */,
+			);
+			path = MessageScreen;
+			sourceTree = "<group>";
+		};
+		7BCAB7312BE3A5CA0061511B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				7B2574DF2BD636CA006C87B6 /* ChatMessage.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7BCAB7322BE3A5EF0061511B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				7B0151BD2BD91EF200D134F6 /* MessageViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		7BCAB7332BE3A6010061511B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7B813C042BCFE85600969B93 /* LoginScreenController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		7B813C102BCFEF2D00969B93 /* CustomView */ = {
+		7BCAB7342BE3A6100061511B /* CustomView */ = {
 			isa = PBXGroup;
 			children = (
 				7B813C0A2BCFEB2600969B93 /* CustomLoginRegisterView.xib */,
@@ -201,11 +208,62 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
-		7B813C1E2BD0084E00969B93 /* Frameworks */ = {
+		7BCAB7352BE3A6340061511B /* Adapter */ = {
 			isa = PBXGroup;
 			children = (
+				7B1C24782BE11EC1000CB4F5 /* LoginAdapter.swift */,
 			);
-			name = Frameworks;
+			path = Adapter;
+			sourceTree = "<group>";
+		};
+		7BCAB7362BE3A6400061511B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7B813C0D2BCFEF1200969B93 /* RegisterScreenController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7BCAB7372BE3A6480061511B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7B3D78B62BD12786006E77BC /* MessageController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7BCAB7382BE3A6670061511B /* UserList */ = {
+			isa = PBXGroup;
+			children = (
+				7BCAB7392BE3A6740061511B /* View */,
+			);
+			path = UserList;
+			sourceTree = "<group>";
+		};
+		7BCAB7392BE3A6740061511B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7B3D78B02BD0F8EC006E77BC /* UsersListController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7BCAB73A2BE3A6800061511B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7B3D78BE2BD152F5006E77BC /* MessageCell.swift */,
+				7B3D78C22BD15383006E77BC /* UserCell.swift */,
+				7B3D78BF2BD152F5006E77BC /* MessageCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		7BCAB73B2BE3A6AB0061511B /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				7B813C082BCFEAAD00969B93 /* ViewExtension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,6 +524,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ChatAPP/ChatAPP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -493,6 +552,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ChatAPP/ChatAPP.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
