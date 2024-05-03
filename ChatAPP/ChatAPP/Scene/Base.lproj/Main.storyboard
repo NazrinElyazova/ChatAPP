@@ -168,7 +168,124 @@
             </objects>
             <point key="canvasLocation" x="1730.534351145038" y="3.5211267605633805"/>
         </scene>
-        <!--Users List Controller-->
+        <!--Tab Bar Controller-->
+        <scene sceneID="i1D-LZ-eVj">
+            <objects>
+                <tabBarController storyboardIdentifier="TabBarController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="L2W-iw-pCS" customClass="TabBarController" customModule="ChatAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="zBe-3G-Uwk">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="Mda-CE-qDa" kind="relationship" relationship="viewControllers" id="cFy-Th-Eee"/>
+                        <segue destination="8hB-x8-VDs" kind="relationship" relationship="viewControllers" id="9GF-Ya-RC1"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bDe-l8-02n" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="820" y="1107"/>
+        </scene>
+        <!--Profile-->
+        <scene sceneID="fMA-Cz-VYR">
+            <objects>
+                <viewController storyboardIdentifier="ProfileController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8hB-x8-VDs" customClass="ProfileController" customModule="ChatAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2xL-FB-dOU">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="d92-d6-jhC">
+                                <rect key="frame" x="20" y="79" width="353" height="180"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalCompressionResistancePriority="749" image="person" translatesAutoresizingMaskIntoConstraints="NO" id="Twn-ss-eKX">
+                                        <rect key="frame" x="65.666666666666671" y="0.0" width="221.66666666666663" height="141"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chris Alex" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IDv-SP-jJU">
+                                        <rect key="frame" x="120" y="153.66666666666666" width="113" height="26.333333333333343"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="22"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="IDv-SP-jJU" firstAttribute="leading" secondItem="d92-d6-jhC" secondAttribute="leading" constant="120" id="0d7-uG-502"/>
+                                    <constraint firstItem="IDv-SP-jJU" firstAttribute="top" secondItem="Twn-ss-eKX" secondAttribute="bottom" constant="12.67" id="3GP-KT-Rna"/>
+                                    <constraint firstItem="Twn-ss-eKX" firstAttribute="top" secondItem="d92-d6-jhC" secondAttribute="top" id="Bzp-RF-2GI"/>
+                                    <constraint firstAttribute="trailing" secondItem="IDv-SP-jJU" secondAttribute="trailing" constant="120" id="Ebc-Vd-BaC"/>
+                                    <constraint firstItem="Twn-ss-eKX" firstAttribute="leading" secondItem="d92-d6-jhC" secondAttribute="leading" constant="65.670000000000002" id="Ew9-Wk-pxi"/>
+                                    <constraint firstAttribute="bottom" secondItem="IDv-SP-jJU" secondAttribute="bottom" id="nZB-mc-CbS"/>
+                                </constraints>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="vKs-zk-Hud">
+                                <rect key="frame" x="20" y="267" width="353" height="502"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ProfileCell" id="AGC-Oe-s4T">
+                                        <rect key="frame" x="0.0" y="50" width="353" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AGC-Oe-s4T" id="Ham-hF-4cY">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="GnV-ZK-v2v"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="d92-d6-jhC" firstAttribute="top" secondItem="GnV-ZK-v2v" secondAttribute="top" constant="20" id="2mZ-KL-7Xk"/>
+                            <constraint firstItem="GnV-ZK-v2v" firstAttribute="trailing" secondItem="d92-d6-jhC" secondAttribute="trailing" constant="20" id="5nQ-zU-5vP"/>
+                            <constraint firstItem="vKs-zk-Hud" firstAttribute="bottom" secondItem="GnV-ZK-v2v" secondAttribute="bottom" id="Fi1-AL-5Op"/>
+                            <constraint firstItem="d92-d6-jhC" firstAttribute="leading" secondItem="vKs-zk-Hud" secondAttribute="leading" id="P4K-SS-9SC"/>
+                            <constraint firstItem="GnV-ZK-v2v" firstAttribute="trailing" secondItem="vKs-zk-Hud" secondAttribute="trailing" constant="20" id="RbG-g9-v0f"/>
+                            <constraint firstItem="d92-d6-jhC" firstAttribute="leading" secondItem="GnV-ZK-v2v" secondAttribute="leading" constant="20" id="eKy-UX-Gjs"/>
+                            <constraint firstItem="vKs-zk-Hud" firstAttribute="leading" secondItem="GnV-ZK-v2v" secondAttribute="leading" constant="20" id="fBQ-3w-kCT"/>
+                            <constraint firstItem="vKs-zk-Hud" firstAttribute="top" secondItem="d92-d6-jhC" secondAttribute="bottom" constant="8" id="fkc-1W-IV4"/>
+                            <constraint firstAttribute="bottom" secondItem="d92-d6-jhC" secondAttribute="bottom" constant="593" id="j4M-Bh-bhf"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Profile" image="person" catalog="system" id="ETw-0x-B7k"/>
+                    <connections>
+                        <outlet property="table" destination="vKs-zk-Hud" id="e2f-9b-gVk"/>
+                        <outlet property="userImage" destination="Twn-ss-eKX" id="aAz-cg-9P5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dPd-sb-lkx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1730.534351145038" y="1414.7887323943662"/>
+        </scene>
+        <!--Mode Controller-->
+        <scene sceneID="IBL-qb-a1o">
+            <objects>
+                <viewController storyboardIdentifier="ModeController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mt1-qa-Oas" customClass="ModeController" customModule="ChatAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CNd-bf-0zm">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="rE1-fY-C3b"/>
+                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fmP-dZ-vRM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2599" y="1415"/>
+        </scene>
+        <!--Live Bot Controller-->
+        <scene sceneID="jqP-PQ-WhX">
+            <objects>
+                <viewController storyboardIdentifier="LiveBotController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vZn-aA-Og0" customClass="LiveBotController" customModule="ChatAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FDC-rZ-Whf">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="70t-VC-rCA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vWp-fV-eOr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3337" y="1415"/>
+        </scene>
+        <!--Users-->
         <scene sceneID="nxi-IB-6gl">
             <objects>
                 <viewController storyboardIdentifier="UsersListController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Mda-CE-qDa" customClass="UsersListController" customModule="ChatAPP" customModuleProvider="target" sceneMemberID="viewController">
@@ -177,7 +294,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="bbB-Lp-J81">
-                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="710"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="UserCell" id="B3d-M6-BKi">
@@ -204,15 +321,16 @@
                             <constraint firstItem="jqh-e9-VEG" firstAttribute="bottom" secondItem="bbB-Lp-J81" secondAttribute="bottom" id="tjV-aP-z1c"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Users" image="person.3.sequence" catalog="system" id="vdE-f0-ZY1"/>
                     <connections>
                         <outlet property="table" destination="bbB-Lp-J81" id="NjG-bE-9yb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AOf-HQ-wDX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2506" y="4"/>
+            <point key="canvasLocation" x="1720" y="720"/>
         </scene>
-        <!--Message Controller-->
+        <!--Item-->
         <scene sceneID="pX6-5s-99J">
             <objects>
                 <viewController storyboardIdentifier="MessageController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="an6-GH-SPN" customClass="MessageController" customModule="ChatAPP" customModuleProvider="target" sceneMemberID="viewController">
@@ -292,6 +410,7 @@
                             <constraint firstItem="tel-js-UmL" firstAttribute="trailing" secondItem="mNS-6G-tJl" secondAttribute="trailing" constant="20" id="xEn-gW-jlW"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="dRQ-DJ-vAp"/>
                     <connections>
                         <outlet property="bottomCons" destination="W0C-2Y-MZC" id="mf8-FS-rLJ"/>
                         <outlet property="generalView" destination="mNS-6G-tJl" id="GKk-ES-7ML"/>
@@ -303,7 +422,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGM-gQ-DzF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3191.6030534351144" y="3.5211267605633805"/>
+            <point key="canvasLocation" x="2543" y="720"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7tY-2i-8tS">
@@ -328,6 +447,9 @@
         <image name="chat" width="512" height="512"/>
         <image name="chat2" width="512" height="512"/>
         <image name="paperplane.fill" catalog="system" width="128" height="119"/>
+        <image name="person" width="860" height="900"/>
+        <image name="person" catalog="system" width="128" height="121"/>
+        <image name="person.3.sequence" catalog="system" width="128" height="64"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -342,6 +464,9 @@
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

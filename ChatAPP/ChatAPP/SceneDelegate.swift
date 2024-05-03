@@ -21,17 +21,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if UserDefaults.standard.bool(forKey: "loggedIn") {
             window = UIWindow(windowScene: WindowScene)
             
-            let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UsersListController")
+            let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "TabBarController")
             
             window?.rootViewController = UINavigationController(rootViewController: controller)
             
             window?.makeKeyAndVisible()
-            //            } else {
-            //               window = UIWindow(windowScene: WindowScene)
-            //                let navigationController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginNav")
-            //                window?.rootViewController = navigationController
-            //                window?.makeKeyAndVisible()
-            //            }
+         
         }
         
         func sceneDidDisconnect(_ scene: UIScene) {

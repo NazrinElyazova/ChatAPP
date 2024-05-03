@@ -79,9 +79,9 @@ extension RegisterScreenController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let credentials as ASAuthorizationAppleIDCredential:
-            let firstName = credentials.fullName?.givenName
-            let lastName = credentials.fullName?.familyName
-            let email = credentials.email
+            _ = credentials.fullName?.givenName
+            _ = credentials.fullName?.familyName
+            _ = credentials.email
             break
         default:
             break

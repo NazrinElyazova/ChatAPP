@@ -50,7 +50,7 @@ class LoginScreenController: UIViewController, UITextFieldDelegate {
                 self.alert()
                 return
             }
-            let controller = self.storyboard?.instantiateViewController(withIdentifier: "\(UsersListController.self)") as! UsersListController
+            let controller = self.storyboard?.instantiateViewController(withIdentifier: "\(TabBarController.self)") as! TabBarController
             self.navigationController?.pushViewController(controller, animated: true)
         }
     }
